@@ -2,7 +2,20 @@
 
 declare(strict_types=1);
 
+// Enable error reporting
+ini_set('display_errors', '1');
+error_reporting(E_ALL);
 
+define('ERROR_LOG_FILE', __DIR__ . '/logs/error.log');
+
+/**
+ * Normalize API data to a common schema.
+ *
+ * @param array  $data   The original API data.
+ * @param string $origin The source of the data ("Travel Guides" or "Adventure Tourists").
+ *
+ * @return array The normalized array.
+ */
 function normalizeData(array $data, string $origin): array
 {
     $normalized = [];
@@ -44,20 +57,44 @@ function normalizeData(array $data, string $origin): array
     return $normalized;
 }
 
-
+/**
+ * Fetch data from an external API with error handling.
+ *
+ * @param string $url The API endpoint.
+ *
+ * @return array The decoded JSON data or an empty array on failure.
+ */
 function fetchData(string $url): array
 {
-    
-    $context = stream_context_create([
-        'http' => [
-            'timeout' => 5,
-        ],
-    ]);
+    try {
+        $context = stream_context_create([
+            'http' => [
+                'timeout' => 5,
+            ],
+        ]);
 
-    $response = @file_get_contents($url, false, $context);
-    $data = json_decode($response, true);
+        $response = @file_get_contents($url, false, $context);
 
-    return $data;
+        if ($response === false) {
+            throw new Exception("HTTP request failed for {$url}");
+        }
+
+        $data = json_decode($response, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new Exception("JSON decode error: " . json_last_error_msg());
+        }
+
+        return $data;
+    } catch (Exception $e) {
+        error_log(
+            '[' . date('Y-m-d H:i:s') . '] ERROR: ' . $e->getMessage() . PHP_EOL,
+            3,
+            ERROR_LOG_FILE
+        );
+
+        return [];
+    }
 }
 
 // Fetch data
