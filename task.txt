@@ -1,0 +1,36 @@
+Coding Test For PHP Developer
+Objective:Your task is to create a PHP script that demonstrates your ability to consume data from multiple
+external APIs, normalize disparate data structures into a common format, and present the
+unified results. This test evaluates your skills in API integration, data manipulation, error
+handling, and code organization.You will have 2 days from receiving this test to complete and return it.
+
+Task 1: User Management SystemObjective: Build a simple, secure, and self-contained PHP application for managing users. This
+tests fundamental backend skills like CRUD operations, form validation, and security.
+
+Task 2: Universal Travel Data AggregatorFetch data from two travel-related APIs, combine the results, and display them in a single,
+unified list. The APIs have completely different structures, so you must map their fields to a
+common schema.
+
+API Endpoints:
+1. API A (Travel Guides): https://jsonplaceholder.typicode.com/users
+2. API B (Adventure Tourists): https://rickandmortyapi.com/api/characterRequirements
+
+1. Data Fetching & Error Handling:Fetch data from both API endpoints.Implement robust error handling.Your script must not crash if one API is temporarily
+unavailable.If one API fails, log a clear error message (e.g., to a file or `error_log`) and continue
+processing with the data from the successful API.Handle potential HTTP errors (e.g., 404, 500) and network timeouts appropriately.
+
+2. Data Normalization:Create a common data format (a unified schema) for items from both APIs.Each item in the final list must include, at a minimum, the following fields. You are expected to
+map the available API data to these fields as logically as possible.`id` (Unique identifier from the source API)`name``type` (e.g., "Human", "Alien", "Robot", "User". Derive this from the best available field.)`status` (e.g., "Active", "Alive", "Deceased", "Unknown")`gender``location` (A string representing the character's current location)`contact` (An email address or similar)`company` (A company name or other affiliation)`image` (URL to a profile picture)`url` (A direct link to the original resource, if available)`origin` (A crucial field: *the name of the source API*, e.g., "Travel Guides" or "Adventure
+Tourists")“Note:” Not all source fields will map perfectly. You must use your best judgment to fit the data
+into the common schema. For example, if a field like `company` is not present in one API, you
+may leave it blank, set it to "N/A", or find a relevant alternative field. Please document these
+decisions in your code with comments.
+
+3. Output:Merge the normalized data from both APIs into a single array.Output the final array in a clear, readable format. The preferred method is to output the data
+as JSON. A simple HTML page for display is also acceptable but not required.What We Are Looking ForClean, Readable Code: Proper formatting, meaningful variable names, and comments where
+necessary.Modern PHP Practices: Use of Composer for dependencies (like a HTTP client) is encouraged
+but not mandatory. You may use `file_get_contents` or `curl` directly if you prefer.
+Error Handling: As outlined above.
+Efficiency: Thoughtful code that avoids unnecessary API calls or processing.
+Solution Design: How you design the normalization logic and structure your code (e.g., using
+functions, classes) is a key part of the assessment.
