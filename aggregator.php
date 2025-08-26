@@ -23,7 +23,7 @@ function normalizeData(array $data, string $origin): array
     foreach ($data as $item) {
         if ($origin === 'Travel Guides') {
             $normalized[] = [
-                'id'       => $item['id'],
+                'id'       => 'A' .$item['id'],
                 'name'     => $item['name'],
                 'type'     => 'User',
                 'status'   => 'Active', // No status in API; assumed
@@ -39,7 +39,7 @@ function normalizeData(array $data, string $origin): array
 
         if ($origin === 'Adventure Tourists') {
             $normalized[] = [
-                'id'       => $item['id'],
+                'id'       => 'B' .$item['id'],
                 'name'     => $item['name'],
                 'type'     => $item['species'] ?? 'Unknown',
                 'status'   => $item['status'] ?? 'Unknown',
