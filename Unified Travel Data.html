@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Data Aggregator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Unified Travel Data</h1>
+    <div id="output">Loading...</div>
+
+    <script>
+        fetch('aggregator.php')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not OK');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (!Array.isArray(data)) {
+                    throw new Error('Invalid data format');
+                }
+
+                if (data.length === 0) {
+                    document.getElementById('output').innerHTML = '<p>No data available.</p>';
+                    return;
+                }
+
+                let table = '<table><thead><tr>';
+                table += '<th>ID</th><th>Name</th><th>Type</th><th>Status</th><th>Gender</th><th>Location</th><th>Contact</th><th>Company</th><th>Origin</th><th>Image</th>';
+                table += '</tr></thead><tbody>';
+
+                data.forEach(item => {
+                    table += '<tr>';
+                    table += `<td>${item.id}</td>`;
+                    table += `<td>${item.name}</td>`;
+                    table += `<td>${item.type}</td>`;
+                    table += `<td>${item.status}</td>`;
+                    table += `<td>${item.gender}</td>`;
+                    table += `<td>${item.location}</td>`;
+                    table += `<td>${item.contact}</td>`;
+                    table += `<td>${item.company}</td>`;
+                    table += `<td>${item.origin}</td>`;
+                    table += `<td><img src="${item.image}" alt="${item.name}" width="40"></td>`;
+                    table += '</tr>';
+                });
+
+                table += '</tbody></table>';
+                document.getElementById('output').innerHTML = table;
+            })
+            .catch(error => {
+                document.getElementById('output').innerHTML = `<p class="error">Error: ${error.message}</p>`;
+            });
+    </script>
+</body>
+</html>
