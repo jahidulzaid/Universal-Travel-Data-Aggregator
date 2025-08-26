@@ -15,9 +15,11 @@ $users = $stmt->fetchAll();
 </head>
 <body>
     <h1>Users</h1>
+
+    
     <p><a href="create.php">Add New User</a></p>
     <table border="1" cellpadding="10">
-        <thead>
+        <thead> 
             <tr>
                 <th>ID</th><th>Name</th><th>Email</th><th>Created</th><th>Actions</th>
             </tr>
@@ -37,5 +39,10 @@ $users = $stmt->fetchAll();
             <?php endforeach; ?>
         </tbody>
     </table>
+    <br>
+    <hr>
+    <!-- Aggregator Link -->
+    <p><a href="../unifiedTravelData.html">View Aggregated Travel Data</a></p>
+
 </body>
 </html>
