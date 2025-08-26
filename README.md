@@ -38,6 +38,8 @@ This script fetches, merge and normalizes data from two different external APIs:
 * [JSONPlaceholder Users](https://jsonplaceholder.typicode.com/users)
 * [Rick & Morty API](https://rickandmortyapi.com/api/character)
 
+![Sample VIew](/TravelData.png)
+
 ### 🔧 How to Run
 
 1.  **Start Server**: Make sure the PHP server is running.
@@ -51,6 +53,12 @@ This script fetches, merge and normalizes data from two different external APIs:
 ### Output
 
 The script returns a merged and normalized JSON object containing data from both APIs. If one API call fails, the script will log the error to `logs/error.log` and still return the data from the successful API.
+
+### Error Log
+If any api fails, add it to the log file with error type and happening time
+
+![Error-log](/error-log.png)
+
 
 ### Requirements
 
